@@ -19,8 +19,6 @@ public class AuthGroup {
     private User user;
     private String authGroup;
     
-
-
     public AuthGroup(User user, String authGroup) {
         this.user = user;
         this.authGroup = authGroup;

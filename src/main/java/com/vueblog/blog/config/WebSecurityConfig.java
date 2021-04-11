@@ -5,6 +5,7 @@ import com.vueblog.blog.filters.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,13 +37,37 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder(11);
 	}
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(myUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setAuthoritiesMapper(authoritiesMapper());
+        return provider;
+    }
+
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
-    
+    @Bean
+    public GrantedAuthoritiesMapper authoritiesMapper(){
+        SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
+        authorityMapper.setConvertToUpperCase(true);
+        //everyone entering will have a guest auth
+        authorityMapper.setDefaultAuthority("USER");
+        return authorityMapper;
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(myUserDetailsService) // How to find users by their username
+            .passwordEncoder(passwordEncoder()) // How to encode and verify passwords
+        ;
+    }
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
