@@ -1,19 +1,27 @@
 package com.vueblog.blog.services;
 
-import org.springframework.security.core.userdetails.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import com.vueblog.blog.repositories.UserRepository;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return new User("foo", "$2y$11$G9EA6yb9/TLGXXeXKWbJtOiZ8BP09h1Xndr5pAQ20FUhXSb/yyAJq",
-                new ArrayList<>());
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDetails user = this.userRepository.findByUsername(username);
+        //if we cant find our user we throw this
+        if(null==user){
+            throw new UsernameNotFoundException("cannot find username: " + username);
+        }
+        //now we check the auth groups 
+        return user;
     }
 }

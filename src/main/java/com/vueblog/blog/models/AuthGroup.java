@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,12 +15,14 @@ public class AuthGroup {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
     
-    private String username;
+    @OneToOne
+    private User user;
     private String authGroup;
+    
 
 
-    public AuthGroup(String username, String authGroup) {
-        this.username = username;
+    public AuthGroup(User user, String authGroup) {
+        this.user = user;
         this.authGroup = authGroup;
     }
 
@@ -34,12 +37,12 @@ public class AuthGroup {
         this.id = id;
     }
 
-    public String getUsername() {
-        return this.username;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getAuthGroup() {

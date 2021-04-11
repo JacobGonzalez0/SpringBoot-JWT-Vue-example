@@ -5,6 +5,10 @@ import java.io.Serializable;
 public class AuthenticationRequest implements Serializable {
 
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4151918789101085950L;
     private String username;
     private String password;
 
