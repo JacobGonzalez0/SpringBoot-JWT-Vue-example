@@ -26,7 +26,7 @@ fi
 
 echo "Building project"
 cd ../../..
-./mvnw spring-boot:run & cd 'src/main/ui/' && vue-cli-service serve --port 3000
+./mvnw spring-boot:run & cd 'src/main/ui/' && npm run serve
 
 
 
