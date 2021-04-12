@@ -57,4 +57,3 @@ src/main/ui/*.njsproj
 src/main/ui/*.sln
 src/main/ui/*.sw?
 
-application.properties
