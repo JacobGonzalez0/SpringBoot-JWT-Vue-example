@@ -10,19 +10,17 @@ echo "                     \/                  \/|__|                 \//_____/ 
 echo ""
 echo "script created by : JacobGonzalez0"
 
-if npm list -g | grep "@vue/cli"; then
-    echo "Vue installed already"
+if [ -d "src/main/ui" ]; then
+    echo "Dependenies installed already"
 else
-    echo "Installing Vue-CLI"
-    npm install -g  @vue/cli @vue/cli-service-global
+    echo "Installing npm packages"
+    cd 'src/main/ui' && npm install
+    cd ../../..
 fi  
 
-  
-
 echo "Building project"
-cd 'src/main/ui' && npm install
-cd ../../..
-./mvnw spring-boot:run & cd 'src/main/ui/' && vue serve /src/main.js
+mvn clean package
+java -jar target/blog-0.0.1-SNAPSHOT.jar & cd 'src/main/ui/' && npm run serve
 
 
 
