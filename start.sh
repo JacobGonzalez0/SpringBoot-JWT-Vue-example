@@ -17,14 +17,8 @@ else
     npm install -g @vue/cli @vue/cli-plugin-babel @vue/cli-plugin-eslint @vue/cli-plugin-router @vue/cli-plugin-vuex 
 fi
 
-if cd 'src/main/ui' && npm list | grep "vue"; then
-    echo "Dependenies installed already"
-else
-    cd 'src/main/ui/' && npm install --only=dev
-    npm install --only=prod
-fi
-
 echo "Building project"
+cd 'src/main/ui' && npm linstall
 cd ../../..
 ./mvnw spring-boot:run & cd 'src/main/ui/' && npm run serve
 
