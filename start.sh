@@ -14,13 +14,15 @@ if npm list -g | grep "@vue/cli"; then
     echo "Vue installed already"
 else
     echo "Installing Vue-CLI"
-    npm install -g @vue/cli @vue/cli-plugin-babel @vue/cli-plugin-eslint @vue/cli-plugin-router @vue/cli-plugin-vuex 
-fi
+    npm install -g  @vue/cli @vue/cli-service-global
+fi  
+
+  
 
 echo "Building project"
 cd 'src/main/ui' && npm install
 cd ../../..
-./mvnw spring-boot:run & cd 'src/main/ui/' && npm run serve
+./mvnw spring-boot:run & cd 'src/main/ui/' && vue serve /src/main.js
 
 
 
