@@ -18,7 +18,7 @@ else
 fi
 
 echo "Building project"
-cd 'src/main/ui' && npm linstall
+cd 'src/main/ui' && npm install
 cd ../../..
 ./mvnw spring-boot:run & cd 'src/main/ui/' && npm run serve
 
