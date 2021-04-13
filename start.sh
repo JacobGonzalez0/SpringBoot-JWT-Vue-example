@@ -10,7 +10,7 @@ echo "                     \/                  \/|__|                 \//_____/ 
 echo ""
 echo "script created by : JacobGonzalez0"
 
-if [ -d "src/main/ui" ]; then
+if [ -d "src/main/ui/node_modules" ]; then
     echo "Dependenies installed already"
 else
     echo "Installing npm packages"
